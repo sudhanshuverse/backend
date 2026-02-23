@@ -9,7 +9,7 @@ const server = http.createServer((req, res) => {
     console.log("URL", req.url);
     console.log("Response", req.method);
     console.log("Headers ",req.headers);
-    
+
 })
 
 const PORT = 8000;
