@@ -10,6 +10,7 @@
 
 // 2. Read the data from the form
 const http = require('http');
+const fs = require('fs');
 
 const server = http.createServer((req, res) => {
     console.log("URL:", req.url);
@@ -37,16 +38,39 @@ const server = http.createServer((req, res) => {
         res.end();
     } else if (req.url === '/submit-details' && req.method == "POST") {
         res.write("<h1>Submit Details<h1>")
+        // this array will store small pieces (chunks) of incoming data
         const body = [];
+        // "data" event runs again and again
+        // every time a small piece of request body arrives from browser
         req.on('data', (chunk) => {
-            console.log(chunk);
-            body.push(chunk);
+            console.log(chunk);     // raw Buffer data (binary)
+            body.push(chunk);       // store each chunk
         })
+        // "end" event runs once
+        // it means browser has finished sending all data
         req.on("end", () => {
+            // combine all chunks into one Buffer
+            // then convert buffer -> readable string
             const parseBody = Buffer.concat(body).toString();
-            console.log(parseBody);
-        })
-        res.end();
+            // convert: username=ram&age=male  into readable key/value form
+            const normalData = new URLSearchParams(parseBody);
+            // create normal JavaScript object
+            const jsonObject = {};
+            for (const [key, value] of normalData.entries()) {
+                jsonObject[key] = value;
+            }
+            // now we finally have full data from form
+            // write it into a file
+            fs.writeFile('sample.txt', JSON.stringify(jsonObject), (err) => {
+                if (err) {
+                    console.log("Error:", err);
+                    res.end("Failed");
+                    return;
+                }
+                console.log("Saved in file!");
+                res.end("Data stored successfully");
+            });
+        });
     } else {
         res.write("<h1>This is default page</h1>")
         res.end();
