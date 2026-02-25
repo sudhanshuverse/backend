@@ -68,7 +68,6 @@ const server = http.createServer((req, res) => {
                     return;
                 }
                 console.log("Saved in file!");
-                res.end("Data stored successfully");
             });
         });
     } else {
