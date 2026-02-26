@@ -9,7 +9,7 @@ const fs = require('fs');
 
 // 2. Read the data from the form
 
-const userRequestHandler =  (req, res) => {
+const userRequestHandler = (req, res) => {
     console.log("URL:", req.url);
     console.log("Method: ", req.method);
     if (req.url === '/') {
