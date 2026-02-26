@@ -18,7 +18,7 @@ const userRequestHandler =  (req, res) => {
             <form action="/submit-details" method="POST">
                 <label for="name" value="name">Name: </label>
                 <input type="text" placeholder="Username" id="name" name="username" required/><br><br>
-                <label>Age: </label>
+                <label>Gender: </label>
                 <input id="male" value="male" type="radio" name="age"/>
                 <label for="male">Male: </label>
                 <input type="radio" id="female" name="age" value="female"/>
