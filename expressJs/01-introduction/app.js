@@ -1,6 +1,3 @@
-// CODE MODULE
-const http = require('http');
-
 // EXTERNAL MODULE
 const express = require('express');
 
@@ -9,18 +6,25 @@ const requestHandler = require('./user')
 
 const app = express();
 
-app.use((req, res, next) => {
+app.get("/", (req, res, next) => {
     console.log(`Came in first middleware: ${req.url} ${req.method}`);
+    // res.send("<h1>Came in first middleware.</h1>")
     next();
-})
+});
 
-app.use((req, res, next) => {
+app.post("/submit-details", (req, res, next) => {
     console.log(`Came in second middleware: ${req.url} ${req.method}`);
-})
+    res.send("<h1>This is second middleware.</h1>");
+});
 
-const server = http.createServer(app);
+app.use("/", (req, res, next) => {
+    console.log(`Came in another middleware: ${req.url} ${req.method}`);
+    res.send("<h1>Came in another middleware.</h1>")
+});
+
+
 
 const PORT = 8000;
-server.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server is running on ${PORT}`);
-})
+});
