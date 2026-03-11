@@ -2,10 +2,13 @@ const Favourite = require('../models/favourites');
 const Home = require('../models/home');
 
 exports.getIndex = (req, res) => {
+    console.log("Session value:", req.session);
+
     Home.find().then(registeredHomes => {
         res.render("store/index", {
             registeredHomes: registeredHomes,
-            pageTitle: "airbnb Home"
+            pageTitle: "airbnb Home",
+            isLoggedIn: req.session.isLoggedIn
         });
     })
 };
@@ -14,15 +17,17 @@ exports.getHomes = (req, res) => {
     Home.find().then(registeredHomes => {
         res.render("store/home-list", {
             registeredHomes: registeredHomes,
-            pageTitle: "Home List"
+            pageTitle: "Home List",
+            isLoggedIn: req.session.isLoggedIn
         });
     });
 };
 
 exports.getBookings = (req, res) => {
     res.render("store/bookings", {
-        pageTitle: "My Bookings"
-    }); ``
+        pageTitle: "My Bookings",
+        isLoggedIn: req.session.isLoggedIn
+    }); 
 };
 
 exports.getFavoriteList = (req, res) => {
@@ -33,7 +38,8 @@ exports.getFavoriteList = (req, res) => {
             const favouriteHomes = favourites.map(fav => fav.houseId);
             res.render("store/favourite-list", {
                 favouriteHomes: favouriteHomes,
-                pageTitle: "Favourites"
+                pageTitle: "Favourites",
+                isLoggedIn: req.session.isLoggedIn
             });
         })
         .catch(err => console.log(err));
@@ -86,6 +92,7 @@ exports.getHomeDetails = (req, res) => {
                 res.render("store/home-detail", {
                     home: home,
                     pageTitle: "Home Detail",
+                    isLoggedIn: req.session.isLoggedIn
                 })
             }
         })
