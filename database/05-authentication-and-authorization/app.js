@@ -56,8 +56,8 @@ app.use(session({
 
 // SESSION DEBUG
 app.use((req, res, next) => {
-    console.log("Session ID:", req.sessionID);
-    console.log("Session:", req.session);
+    // console.log("Session ID:", req.sessionID);
+    // console.log("Session:", req.session);
     next();
 });
 
