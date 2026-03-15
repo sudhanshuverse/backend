@@ -25,7 +25,7 @@ const store = new MongoDBStore({
   collection: 'sessions'
 });
 
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: false }));
 app.use(session({
   secret: "KnowledgeGate AI with Complete Coding",
   resave: false,
