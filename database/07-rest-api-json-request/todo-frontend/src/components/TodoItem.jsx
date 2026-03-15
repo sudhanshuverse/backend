@@ -1,18 +1,47 @@
-function TodoItem({ todoName, todoDate, onDeleteClick }) {
+function TodoItem({
+  id,
+  todoName,
+  todoDate,
+  completed,
+  onDeleteClick,
+  onCompleteClick,
+}) {
+  const formattedDate = todoDate
+    ? new Date(todoDate).toLocaleDateString("en-GB")
+    : "";
+
   return (
-    <div className="container">
-      <div className="row kg-row">
-        <div className="col-6">{todoName}</div>
-        <div className="col-4">{todoDate}</div>
-        <div className="col-2">
+    <div
+      className={`flex justify-between items-center p-4 rounded-lg shadow transition 
+      ${completed ? "bg-green-50 opacity-70" : "bg-white"}`}
+    >
+      <div>
+        <p
+          className={`font-medium ${completed ? "line-through text-gray-400" : ""
+            }`}
+        >
+          {todoName}
+        </p>
+
+        <p className="text-sm text-gray-500">{formattedDate}</p>
+      </div>
+
+      <div className="flex gap-2">
+        {!completed && (
           <button
-            type="button"
-            className="btn btn-danger kg-button"
-            onClick={() => onDeleteClick(todoName)}
+            onClick={() => onCompleteClick(id)}
+            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
           >
-            Delete
+            Complete
           </button>
-        </div>
+        )}
+
+        <button
+          onClick={() => onDeleteClick(id)}
+          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+        >
+          Delete
+        </button>
       </div>
     </div>
   );

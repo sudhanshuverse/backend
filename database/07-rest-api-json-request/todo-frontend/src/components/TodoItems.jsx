@@ -1,15 +1,18 @@
 import TodoItem from "./TodoItem";
-import styles from "./TodoItems.module.css";
 
-const TodoItems = ({ todoItems, onDeleteClick }) => {
+const TodoItems = ({ todoItems, onDeleteClick, onCompleteClick }) => {
   return (
-    <div className={styles.itemsContainer}>
+    <div className="space-y-3 mt-4">
       {todoItems.map((item) => (
         <TodoItem
-          todoDate={item.dueDate}
+          key={item.id}
+          id={item.id}
           todoName={item.name}
+          todoDate={item.dueDate}
+          completed={item.complete}
           onDeleteClick={onDeleteClick}
-        ></TodoItem>
+          onCompleteClick={onCompleteClick}
+        />
       ))}
     </div>
   );
