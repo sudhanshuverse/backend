@@ -6,6 +6,8 @@ const express = require('express');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const DB_PATH = "mongodb://sudhanshu1:coding12345@ac-ixqd2yz-shard-00-00.8bpirzw.mongodb.net:27017,ac-ixqd2yz-shard-00-01.8bpirzw.mongodb.net:27017,ac-ixqd2yz-shard-00-02.8bpirzw.mongodb.net:27017/airbnb?ssl=true&replicaSet=atlas-s0hxc6-shard-0&authSource=admin&appName=FirstCluster";
+const { default: mongoose } = require('mongoose');
+
 
 //Local Module
 const storeRouter = require("./routes/storeRouter")
@@ -13,7 +15,6 @@ const hostRouter = require("./routes/hostRouter")
 const authRouter = require("./routes/authRouter")
 const rootDir = require("./utils/pathUtil");
 const errorsController = require("./controllers/errors");
-const { default: mongoose } = require('mongoose');
 
 const app = express();
 
@@ -27,7 +28,7 @@ const store = new MongoDBStore({
 
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
-  secret: "KnowledgeGate AI with Complete Coding",
+  secret: "Hello, how are you",
   resave: false,
   saveUninitialized: true,
   store
